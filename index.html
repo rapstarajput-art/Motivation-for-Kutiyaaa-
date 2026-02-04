@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Motivation for Kutia 🖤</title>
+
+<style>
+/* ===== BACKGROUND ===== */
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#ffd6e8;
+  overflow:hidden;
+}
+
+/* floating black hearts */
+.bg-heart{
+  position:fixed;
+  font-size:20px;
+  color:black;
+  opacity:0.25;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  from{ transform:translateY(100vh); }
+  to{ transform:translateY(-10vh); }
+}
+
+/* ===== CARD ===== */
+.card{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:520px;
+  max-width:90%;
+  height:360px;
+  background:white;
+  border-radius:18px;
+  padding:25px;
+  box-shadow:0 12px 35px rgba(0,0,0,0.2);
+  text-align:center;
+}
+
+.hidden{ display:none; }
+
+h1,h2{ margin:15px 0; }
+
+/* ===== BUTTONS ===== */
+button{
+  padding:12px 22px;
+  border:none;
+  border-radius:25px;
+  font-size:16px;
+  margin:10px;
+  cursor:pointer;
+}
+
+#yes{
+  background:#ff4d88;
+  color:white;
+}
+
+#no{
+  background:#eee;
+  position:absolute;
+}
+
+/* ===== IMAGE ===== */
+.img-wrap{
+  position:relative;
+  display:inline-block;
+}
+img{
+  width:220px;
+  border-radius:12px;
+}
+
+/* ===== BLACK HEART ===== */
+#heart{
+  position:absolute;
+  top:55%;
+  left:35%;
+  width:42px;
+  height:42px;
+  background:black;
+  transform:rotate(-45deg);
+  cursor:pointer;
+  transition:transform 0.6s ease;
+}
+
+#heart::before,
+#heart::after{
+  content:"";
+  position:absolute;
+  width:42px;
+  height:42px;
+  background:black;
+  border-radius:50%;
+}
+#heart::before{ top:-21px; left:0; }
+#heart::after{ left:21px; top:0; }
+
+#heart span{
+  position:absolute;
+  top:12px;
+  left:9px;
+  transform:rotate(45deg);
+  color:white;
+  font-size:11px;
+  font-weight:bold;
+}
+
+/* ===== FIREWORK ===== */
+.firework{
+  position:fixed;
+  width:8px;
+  height:8px;
+  background:black;
+  border-radius:50%;
+  animation:boom 1.2s ease-out forwards;
+}
+@keyframes boom{
+  to{
+    transform:translate(
+      calc(-200px + 400px * var(--x)),
+      calc(-200px + 400px * var(--y))
+    );
+    opacity:0;
+  }
+}
+
+/* ===== HEARTBEAT TEXT ===== */
+.beat{
+  animation:beat 1s infinite;
+}
+@keyframes beat{
+  0%,100%{ transform:scale(1); }
+  50%{ transform:scale(1.08); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- floating hearts -->
+<script>
+for(let i=0;i<25;i++){
+  const h=document.createElement("div");
+  h.className="bg-heart";
+  h.innerText="🖤";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(6+Math.random()*6)+"s";
+  document.body.appendChild(h);
+}
+</script>
+
+<!-- PAGE 1 -->
+<div class="card" id="p1">
+  <h1>Motivation video for Kutia 🖤</h1>
+  <h2>Video banayegi ki nahi?</h2>
+  <button id="yes" onclick="goPage2()">Yes 😎</button>
+  <button id="no" onclick="noClick()">No</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="card hidden" id="p2">
+  <h2>Good choice 😏</h2>
+  <div class="img-wrap">
+    <img src="image.png">
+    <div id="heart" onclick="heartClick()"><span>click</span></div>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="card hidden" id="p3">
+  <img src="image.png">
+  <h2 class="beat">
+    If you make the video, you’ll become so rich 💰<br>
+    you can afford me 😌
+  </h2>
+</div>
+
+<script>
+/* NO button logic */
+let noTexts=[
+  "No",
+  "Soch le 😐",
+  "Sure hai?",
+  "Last chance 😶",
+  "No option removed 😌"
+];
+let n=0;
+
+function moveNo(){
+  no.style.left=Math.random()*350+"px";
+  no.style.top=Math.random()*200+"px";
+}
+
+function noClick(){
+  if(n<noTexts.length){
+    no.innerText=noTexts[n];
+    moveNo();
+    n++;
+  }else{
+    no.style.display="none";
+  }
+}
+
+/* YES */
+function goPage2(){
+  p1.classList.add("hidden");
+  p2.classList.remove("hidden");
+}
+
+/* HEART */
+let clicks=0;
+function heartClick(){
+  clicks++;
+  heart.style.transform=`rotate(-45deg) scale(${1+clicks})`;
+
+  if(clicks==1) heart.querySelector("span").innerText="again";
+  if(clicks==2) heart.querySelector("span").innerText="harder";
+
+  if(clicks>=3){
+    heart.style.transform="rotate(-45deg) scale(25)";
+    setTimeout(()=>{
+      explode();
+      p2.classList.add("hidden");
+      p3.classList.remove("hidden");
+    },800);
+  }
+}
+
+/* FIREWORK */
+function explode(){
+  for(let i=0;i<30;i++){
+    const f=document.createElement("div");
+    f.className="firework";
+    f.style.left="50%";
+    f.style.top="50%";
+    f.style.setProperty("--x",Math.random());
+    f.style.setProperty("--y",Math.random());
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1200);
+  }
+}
+</script>
+
+</body>
+</html>
