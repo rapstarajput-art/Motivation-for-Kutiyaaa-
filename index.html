@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Motivation for Kutia 🖤</title>
 
 <style>
@@ -17,7 +17,7 @@ body{
 /* floating black hearts */
 .bg-heart{
   position:fixed;
-  font-size:20px;
+  font-size:22px;
   color:black;
   opacity:0.25;
   animation:floatUp linear infinite;
@@ -27,19 +27,19 @@ body{
   to{ transform:translateY(-10vh); }
 }
 
-/* ===== CARD ===== */
+/* ===== POSTCARD ===== */
 .card{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  width:520px;
-  max-width:90%;
+  width:560px;
   height:360px;
+  max-width:92%;
   background:white;
-  border-radius:18px;
+  border-radius:20px;
   padding:25px;
-  box-shadow:0 12px 35px rgba(0,0,0,0.2);
+  box-shadow:0 15px 40px rgba(0,0,0,0.25);
   text-align:center;
 }
 
@@ -50,70 +50,68 @@ h1,h2{ margin:15px 0; }
 /* ===== BUTTONS ===== */
 button{
   padding:12px 22px;
+  font-size:16px;
   border:none;
   border-radius:25px;
-  font-size:16px;
   margin:10px;
   cursor:pointer;
 }
 
-#yes{
-  background:#ff4d88;
-  color:white;
-}
-
-#no{
-  background:#eee;
-  position:absolute;
-}
+#yes{ background:#ff4d88; color:white; }
+#no{ background:#eee; position:absolute; }
 
 /* ===== IMAGE ===== */
 .img-wrap{
   position:relative;
-  display:inline-block;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:25px;
 }
 img{
   width:220px;
   border-radius:12px;
 }
 
-/* ===== BLACK HEART ===== */
+/* ===== BLACK HEART (FIXED TEXT) ===== */
 #heart{
-  position:absolute;
-  top:55%;
-  left:35%;
-  width:42px;
-  height:42px;
+  width:46px;
+  height:46px;
   background:black;
   transform:rotate(-45deg);
   cursor:pointer;
   transition:transform 0.6s ease;
+  position:relative;
 }
 
 #heart::before,
 #heart::after{
   content:"";
   position:absolute;
-  width:42px;
-  height:42px;
+  width:46px;
+  height:46px;
   background:black;
   border-radius:50%;
 }
-#heart::before{ top:-21px; left:0; }
-#heart::after{ left:21px; top:0; }
+#heart::before{ top:-23px; left:0; }
+#heart::after{ left:23px; top:0; }
 
+/* heart text — FIXED */
 #heart span{
   position:absolute;
-  top:12px;
-  left:9px;
+  top:14px;
+  left:10px;
+  width:30px;
+  text-align:center;
   transform:rotate(45deg);
   color:white;
   font-size:11px;
   font-weight:bold;
+  pointer-events:none;
 }
 
-/* ===== FIREWORK ===== */
-.firework{
+/* ===== CONFETTI ===== */
+.confetti{
   position:fixed;
   width:8px;
   height:8px;
@@ -146,7 +144,7 @@ img{
 
 <!-- floating hearts -->
 <script>
-for(let i=0;i<25;i++){
+for(let i=0;i<28;i++){
   const h=document.createElement("div");
   h.className="bg-heart";
   h.innerText="🖤";
@@ -166,24 +164,29 @@ for(let i=0;i<25;i++){
 
 <!-- PAGE 2 -->
 <div class="card hidden" id="p2">
-  <h2>Good choice 😏</h2>
+  <h2>Tap the heart 🖤</h2>
   <div class="img-wrap">
-    <img src="image.png">
-    <div id="heart" onclick="heartClick()"><span>click</span></div>
+    <img src="her.png">
+    <div id="heart" onclick="heartClick()">
+      <span>click</span>
+    </div>
   </div>
 </div>
 
 <!-- PAGE 3 -->
 <div class="card hidden" id="p3">
-  <img src="image.png">
+  <div class="img-wrap">
+    <img src="her-rich.png">
+  </div>
   <h2 class="beat">
-    If you make the video, you’ll become so rich 💰<br>
+    If you make the video,<br>
+    you’ll become so rich 💰<br>
     you can afford me 😌
   </h2>
 </div>
 
 <script>
-/* NO button logic */
+/* NO button */
 let noTexts=[
   "No",
   "Soch le 😐",
@@ -192,12 +195,10 @@ let noTexts=[
   "No option removed 😌"
 ];
 let n=0;
-
 function moveNo(){
-  no.style.left=Math.random()*350+"px";
+  no.style.left=Math.random()*360+"px";
   no.style.top=Math.random()*200+"px";
 }
-
 function noClick(){
   if(n<noTexts.length){
     no.innerText=noTexts[n];
@@ -224,7 +225,7 @@ function heartClick(){
   if(clicks==2) heart.querySelector("span").innerText="harder";
 
   if(clicks>=3){
-    heart.style.transform="rotate(-45deg) scale(25)";
+    heart.style.transform="rotate(-45deg) scale(22)";
     setTimeout(()=>{
       explode();
       p2.classList.add("hidden");
@@ -233,17 +234,17 @@ function heartClick(){
   }
 }
 
-/* FIREWORK */
+/* CONFETTI */
 function explode(){
-  for(let i=0;i<30;i++){
-    const f=document.createElement("div");
-    f.className="firework";
-    f.style.left="50%";
-    f.style.top="50%";
-    f.style.setProperty("--x",Math.random());
-    f.style.setProperty("--y",Math.random());
-    document.body.appendChild(f);
-    setTimeout(()=>f.remove(),1200);
+  for(let i=0;i<35;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left="50%";
+    c.style.top="50%";
+    c.style.setProperty("--x",Math.random());
+    c.style.setProperty("--y",Math.random());
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),1200);
   }
 }
 </script>
