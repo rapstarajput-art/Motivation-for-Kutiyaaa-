@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Motivation for Kutia 🖤</title>
+<title>Motivation for Kutiyaaa 🖤</title>
 
 <style>
 /* ===== BACKGROUND ===== */
 body{
   margin:0;
-  font-family:Arial, sans-serif;
   background:#ffd6e8;
+  font-family: 'Arial', sans-serif;
+  height:100vh;
   overflow:hidden;
 }
 
-/* floating black hearts */
+/* floating hearts */
 .bg-heart{
   position:fixed;
-  font-size:22px;
-  color:black;
-  opacity:0.25;
-  animation:floatUp linear infinite;
+  color:rgba(255,105,180,0.35);
+  font-size:20px;
+  animation: floatUp 10s linear infinite;
 }
 @keyframes floatUp{
   from{ transform:translateY(100vh); }
@@ -29,85 +29,100 @@ body{
 
 /* ===== POSTCARD ===== */
 .card{
+  background:white;
+  width:420px;
+  height:520px;
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  width:560px;
-  height:360px;
-  max-width:92%;
-  background:white;
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.25);
-  text-align:center;
 }
 
 .hidden{ display:none; }
 
-h1,h2{ margin:15px 0; }
+h1,h2{
+  margin:15px 0;
+}
 
 /* ===== BUTTONS ===== */
 button{
-  padding:12px 22px;
-  font-size:16px;
+  padding:12px 24px;
   border:none;
   border-radius:25px;
+  font-size:16px;
   margin:10px;
   cursor:pointer;
 }
 
-#yes{ background:#ff4d88; color:white; }
-#no{ background:#eee; position:absolute; }
+#yes{
+  background:#ff4d88;
+  color:white;
+}
 
-/* ===== IMAGE ===== */
+#no{
+  background:#eee;
+  position:absolute;
+}
+
+/* ===== IMAGES ===== */
 .img-wrap{
   position:relative;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:25px;
+  width:220px;
+  margin:20px auto;
 }
 img{
-  width:220px;
+  width:100%;
   border-radius:12px;
 }
 
-/* ===== BLACK HEART (FIXED TEXT) ===== */
-#heart{
+/* ===== BLACK HEART ===== */
+.heart{
+  position:absolute;
+  top:55%;
+  left:70%;
   width:46px;
   height:46px;
   background:black;
   transform:rotate(-45deg);
   cursor:pointer;
-  transition:transform 0.6s ease;
-  position:relative;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-#heart::before,
-#heart::after{
+.heart::before,
+.heart::after{
   content:"";
   position:absolute;
   width:46px;
   height:46px;
   background:black;
   border-radius:50%;
+  z-index:-1;
 }
-#heart::before{ top:-23px; left:0; }
-#heart::after{ left:23px; top:0; }
 
-/* heart text — FIXED */
-#heart span{
-  position:absolute;
-  top:14px;
-  left:10px;
-  width:30px;
-  text-align:center;
+.heart::before{ top:-23px; left:0; }
+.heart::after{ left:23px; top:0; }
+
+.heart span{
   transform:rotate(45deg);
   color:white;
-  font-size:11px;
+  font-size:12px;
   font-weight:bold;
-  pointer-events:none;
+  z-index:10;
+}
+
+/* ===== HEART EXPLODE ===== */
+.explode{
+  animation: boom 1.4s ease forwards;
+}
+@keyframes boom{
+  to{ transform:rotate(-45deg) scale(18); opacity:0; }
 }
 
 /* ===== CONFETTI ===== */
@@ -116,10 +131,9 @@ img{
   width:8px;
   height:8px;
   background:black;
-  border-radius:50%;
-  animation:boom 1.2s ease-out forwards;
+  animation: confetti 1.2s ease-out forwards;
 }
-@keyframes boom{
+@keyframes confetti{
   to{
     transform:translate(
       calc(-200px + 400px * var(--x)),
@@ -131,7 +145,7 @@ img{
 
 /* ===== HEARTBEAT TEXT ===== */
 .beat{
-  animation:beat 1s infinite;
+  animation: beat 1s infinite;
 }
 @keyframes beat{
   0%,100%{ transform:scale(1); }
@@ -144,31 +158,35 @@ img{
 
 <!-- floating hearts -->
 <script>
-for(let i=0;i<28;i++){
-  const h=document.createElement("div");
-  h.className="bg-heart";
-  h.innerText="🖤";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(6+Math.random()*6)+"s";
+for(let i=0;i<25;i++){
+  let h=document.createElement('div');
+  h.className='bg-heart';
+  h.innerText='♥';
+  h.style.left=Math.random()*100+'vw';
+  h.style.animationDuration=(6+Math.random()*6)+'s';
   document.body.appendChild(h);
 }
 </script>
 
 <!-- PAGE 1 -->
 <div class="card" id="p1">
-  <h1>Motivation video for Kutia 🖤</h1>
+  <div style="font-size:48px;">🐱</div>
+  <h1>Motivation video for Kutiya 🖤</h1>
   <h2>Video banayegi ki nahi?</h2>
-  <button id="yes" onclick="goPage2()">Yes 😎</button>
+
+  <button id="yes" onclick="goPage2()">Yes 🎥</button>
   <button id="no" onclick="noClick()">No</button>
+
+  <p id="msg" style="color:#ff4d88;font-weight:bold;"></p>
 </div>
 
 <!-- PAGE 2 -->
 <div class="card hidden" id="p2">
-  <h2>Tap the heart 🖤</h2>
+  <h2>Click the black heart 🖤</h2>
   <div class="img-wrap">
     <img src="her.png">
-    <div id="heart" onclick="heartClick()">
-      <span>click</span>
+    <div class="heart" id="heart" onclick="heartClick()">
+      <span>CLICK</span>
     </div>
   </div>
 </div>
@@ -178,73 +196,65 @@ for(let i=0;i<28;i++){
   <div class="img-wrap">
     <img src="her-rich.png">
   </div>
-  <h2 class="beat">
-    If you make the video,<br>
-    you’ll become so rich 💰<br>
-    you can afford me 😌
-  </h2>
+  <h2 class="beat">If you make the video,<br>you will become so rich 💸<br>you can afford me 😌</h2>
 </div>
 
 <script>
-/* NO button */
+/* ===== PAGE 1 NO LOGIC ===== */
 let noTexts=[
-  "No",
-  "Soch le 😐",
-  "Sure hai?",
-  "Last chance 😶",
-  "No option removed 😌"
+  "Oh… already no?",
+  "Wow. Bold choice.",
+  "Are you sure?",
+  "My heart says yes though…",
+  "No option removed ❌"
 ];
 let n=0;
-function moveNo(){
-  no.style.left=Math.random()*360+"px";
-  no.style.top=Math.random()*200+"px";
-}
 function noClick(){
+  let no=document.getElementById('no');
+  let msg=document.getElementById('msg');
   if(n<noTexts.length){
-    no.innerText=noTexts[n];
-    moveNo();
+    msg.innerText=noTexts[n];
+    no.style.left=Math.random()*260+'px';
+    no.style.top=Math.random()*260+'px';
     n++;
-  }else{
-    no.style.display="none";
+  }
+  if(n===noTexts.length){
+    no.style.display='none';
   }
 }
 
-/* YES */
+/* ===== PAGE SWITCH ===== */
 function goPage2(){
-  p1.classList.add("hidden");
-  p2.classList.remove("hidden");
+  p1.classList.add('hidden');
+  p2.classList.remove('hidden');
 }
 
-/* HEART */
-let clicks=0;
+/* ===== HEART LOGIC ===== */
+let c=0;
 function heartClick(){
-  clicks++;
-  heart.style.transform=`rotate(-45deg) scale(${1+clicks})`;
+  let h=document.getElementById('heart');
+  let t=h.querySelector('span');
+  c++;
 
-  if(clicks==1) heart.querySelector("span").innerText="again";
-  if(clicks==2) heart.querySelector("span").innerText="harder";
+  if(c===1) t.innerText="AGAIN";
+  if(c===2) t.innerText="HARDER";
 
-  if(clicks>=3){
-    heart.style.transform="rotate(-45deg) scale(22)";
+  if(c>=3){
+    h.classList.add('explode');
+    for(let i=0;i<30;i++){
+      let f=document.createElement('div');
+      f.className='confetti';
+      f.style.left='50%';
+      f.style.top='50%';
+      f.style.setProperty('--x',Math.random());
+      f.style.setProperty('--y',Math.random());
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(),1200);
+    }
     setTimeout(()=>{
-      explode();
-      p2.classList.add("hidden");
-      p3.classList.remove("hidden");
-    },800);
-  }
-}
-
-/* CONFETTI */
-function explode(){
-  for(let i=0;i<35;i++){
-    const c=document.createElement("div");
-    c.className="confetti";
-    c.style.left="50%";
-    c.style.top="50%";
-    c.style.setProperty("--x",Math.random());
-    c.style.setProperty("--y",Math.random());
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),1200);
+      p2.classList.add('hidden');
+      p3.classList.remove('hidden');
+    },900);
   }
 }
 </script>
